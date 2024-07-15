@@ -30,7 +30,6 @@ public class FilmController {
         validateFilm(film);
         film.setId(getNextId());
         films.put(film.getId(), film);
-        log.info("Отправлен ответ Post / films с телом {}", film);
         return film;
     }
 
@@ -43,7 +42,6 @@ public class FilmController {
         validateFilm(film);
         log.info("Поступил Put запрос /films с телом {}", film);
         films.put(film.getId(), film);
-        log.info("Отправлен ответ Put / films с телом {}", film);
         return film;
     }
 

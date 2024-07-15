@@ -15,8 +15,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/users")
 @Slf4j
-
-
 public class UserController {
     private final Map<Long, User> users = new HashMap<>();
     private long id = 0;
@@ -33,7 +31,6 @@ public class UserController {
         log.info("Поступил Post запрос /users с телом {}", user);
         user.setId(getNextId());
         users.put(user.getId(), user);
-        log.info("Отправлен ответ Post /users с телом {}", user);
         return user;
     }
 
@@ -46,7 +43,6 @@ public class UserController {
         validateUser(user);
         log.info("Пришел Put запрос /users с телом {}", user);
         users.put(user.getId(), user);
-        log.info("Отправлен ответ Put /users с телом {}", user);
         return user;
     }
 
