@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ class UserControllerTest {
         user.setBirthday(LocalDate.of(1995, 1, 11));
         user.setLogin("");
         user.setEmail("belka95@mail.ru");
-        assertThrows(ValidationException.class, () -> {
+        assertThrows(ConstraintViolationException.class, () -> {
             User user1 = userController.userCreate(user);
         });
 
@@ -78,7 +79,7 @@ class UserControllerTest {
         user.setLogin("Belka");
         user.setEmail("belka95mail.ru");
 
-        assertThrows(ValidationException.class, () -> {
+        assertThrows(ConstraintViolationException.class, () -> {
             User user1 = userController.userCreate(user);
         });
     }
