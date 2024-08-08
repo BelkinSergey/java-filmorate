@@ -25,7 +25,7 @@ class UserControllerTest {
         user.setLogin("Belka");
         user.setEmail("");
         assertThrows(ValidationException.class, () -> {
-            User user1 = userController.create(user);
+            User user1 = userController.userCreate(user);
         });
     }
 
@@ -38,7 +38,7 @@ class UserControllerTest {
         user.setLogin("");
         user.setEmail("belka95@mail.ru");
         assertThrows(ValidationException.class, () -> {
-            User user1 = userController.create(user);
+            User user1 = userController.userCreate(user);
         });
 
     }
@@ -53,7 +53,7 @@ class UserControllerTest {
         user.setEmail("belka95@mail.ru");
 
         assertThrows(ValidationException.class, () -> {
-            User user1 = userController.create(user);
+            User user1 = userController.userCreate(user);
         });
     }
 
@@ -64,7 +64,7 @@ class UserControllerTest {
         user.setBirthday(LocalDate.of(1995, 1, 11));
         user.setLogin("Belka");
         user.setEmail("belka95@mail.ru");
-        User user1 = userController.create(user);
+        User user1 = userController.userCreate(user);
 
         assertEquals("Belka", user1.getName());
     }
@@ -79,7 +79,7 @@ class UserControllerTest {
         user.setEmail("belka95mail.ru");
 
         assertThrows(ValidationException.class, () -> {
-            User user1 = userController.create(user);
+            User user1 = userController.userCreate(user);
         });
     }
 

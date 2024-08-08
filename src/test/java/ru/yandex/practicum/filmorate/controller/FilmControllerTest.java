@@ -27,7 +27,7 @@ class FilmControllerTest {
         film.setDuration(130);
         film.setReleaseDate(LocalDate.now());
         assertThrows(ConditionsNotMetException.class, () -> {
-            Film film1 = filmController.update(film);
+            Film film1 = filmController.filmUpdate(film);
         });
     }
 
@@ -40,7 +40,7 @@ class FilmControllerTest {
         film.setDuration(130);
         film.setReleaseDate(LocalDate.now());
         assertThrows(ValidationException.class, () -> {
-            Film film1 = filmController.create(film);
+            Film film1 = filmController.filmCreate(film);
         });
     }
 
@@ -56,7 +56,7 @@ class FilmControllerTest {
         film.setDuration(130);
         film.setReleaseDate(LocalDate.now());
         assertThrows(ValidationException.class, () -> {
-            Film film1 = filmController.create(film);
+            Film film1 = filmController.filmCreate(film);
         });
     }
 
@@ -69,7 +69,7 @@ class FilmControllerTest {
         film.setDuration(130);
         film.setReleaseDate(LocalDate.of(1801, 1, 1));
         assertThrows(ValidationException.class, () -> {
-            Film film1 = filmController.create(film);
+            Film film1 = filmController.filmCreate(film);
         });
     }
 
@@ -82,7 +82,7 @@ class FilmControllerTest {
         film.setDuration(-130);
         film.setReleaseDate(LocalDate.now());
         assertThrows(ValidationException.class, () -> {
-            Film film1 = filmController.create(film);
+            Film film1 = filmController.filmCreate(film);
         });
     }
 }
