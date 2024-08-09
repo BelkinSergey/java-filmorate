@@ -23,7 +23,7 @@ public class FilmController {
     @PostMapping
     public Film filmCreate(@RequestBody Film filmRequest) {
         log.info("Поступил Post запрос /films с телом {}", filmRequest);
-        Film filmResponse = filmService.filmCreate(filmRequest);
+        Film filmResponse = filmService.createFilm(filmRequest);
         log.info("Отправлен ответ Post / films с телом {}", filmResponse);
         return filmResponse;
 
@@ -32,13 +32,13 @@ public class FilmController {
     @PutMapping("{filmId}/like/{userId}")
     public void filmLike(@PathVariable Long filmId, @PathVariable Long userId) {
         log.info("Поступил Put запрос c переменной пути /films/{}/like/{}", filmId, userId);
-        filmService.filmLike(filmId, userId);
+        filmService.likeFilm(filmId, userId);
     }
 
     @DeleteMapping("{filmId}/like/{userId}")
     public void filmLikeRemove(@PathVariable Long filmId, @PathVariable Long userId) {
         log.info("Поступил Delete запрос с переменной пути /films/{}/like/{}", filmId, userId);
-        filmService.filmLikeRemove(filmId, userId);
+        filmService.removeLike(filmId, userId);
     }
 
     @GetMapping("/popular")
@@ -52,7 +52,7 @@ public class FilmController {
     @PutMapping
     public Film filmUpdate(@RequestBody Film newFilm) {
         log.info("Поступил Put запрос /films с телом {}", newFilm);
-        Film filmResponse = filmService.filmUpdate(newFilm);
+        Film filmResponse = filmService.updateFilm(newFilm);
         log.info("Отправлен Put ответ /films с телом {}", filmResponse);
         return filmResponse;
     }
@@ -68,7 +68,7 @@ public class FilmController {
     @ResponseStatus(HttpStatus.OK)
     public void filmDelete(@PathVariable Long filmId) {
         log.info("Поступил Delete запрос с переменной пути /films/{}", filmId);
-        filmService.filmDelete(filmId);
+        filmService.deleteFilm(filmId);
     }
 }
 

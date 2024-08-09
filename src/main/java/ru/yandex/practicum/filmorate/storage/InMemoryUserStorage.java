@@ -15,21 +15,21 @@ public class InMemoryUserStorage implements UserStorage {
     private long id = 0;
 
     @Override
-    public User userCreate(User user) {
+    public User createUser(User user) {
         user.setId(getNextId());
         users.put(user.getId(), user);
         return user;
     }
 
     @Override
-    public User userUpdate(User user) {
+    public User updateUser(User user) {
         getUser(user.getId());
         users.put(user.getId(), user);
         return user;
     }
 
     @Override
-    public void userDelete(Long id) {
+    public void deleteUser(Long id) {
         getUser(id);
         users.remove(id);
         log.info("Ползователь {} удален", users.get(id));

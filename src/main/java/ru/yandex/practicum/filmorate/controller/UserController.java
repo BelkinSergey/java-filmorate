@@ -55,7 +55,7 @@ public class UserController {
     @PostMapping
     public User userCreate(@Valid @RequestBody User newUser) {
         log.info("Поступил Post запрос /films с телом {}", newUser);
-        User userResponse = userService.userCreate(newUser);
+        User userResponse = userService.createUser(newUser);
         log.info("Отправлен ответ Post / films с телом {}", userResponse);
         return userResponse;
     }
@@ -63,7 +63,7 @@ public class UserController {
     @PutMapping
     public User userUpdate(@Valid @RequestBody User newUser) {
         log.info("Поступил Put запрос /films с телом {}", newUser);
-        User userResponse = userService.userUpdate(newUser);
+        User userResponse = userService.updateUser(newUser);
         log.info("Отправлен Put ответ /films с телом {}", userResponse);
         return userResponse;
     }
@@ -79,6 +79,6 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public void userDelete(@PathVariable("userId") Long id) {
         log.info("Поступил Delete запрос с переменной пути /users/{}", id);
-        userService.userDelete(id);
+        userService.deleteUser(id);
     }
 }

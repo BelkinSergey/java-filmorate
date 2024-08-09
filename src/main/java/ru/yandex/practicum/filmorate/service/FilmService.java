@@ -22,27 +22,27 @@ public class FilmService {
     private final FilmStorage filmStorage;
     private final UserStorage userStorage;
 
-    public Film filmCreate(Film filmRequest) {
+    public Film createFilm(Film filmRequest) {
         validateFilm(filmRequest);
-        return filmStorage.filmCreate(filmRequest);
+        return filmStorage.createFilm(filmRequest);
     }
 
     public Collection<Film> allFilms() {
         return filmStorage.allFilms();
     }
 
-    public Film filmUpdate(Film newFilm) {
+    public Film updateFilm(Film newFilm) {
         checkId(newFilm.getId());
         validateFilm(newFilm);
-        return filmStorage.filmUpdate(newFilm);
+        return filmStorage.updateFilm(newFilm);
     }
 
-    public void filmDelete(Long id) {
+    public void deleteFilm(Long id) {
         checkId(id);
-        filmStorage.filmDelete(id);
+        filmStorage.deleteFilm(id);
     }
 
-    public void filmLike(Long filmId, Long userId) {
+    public void likeFilm(Long filmId, Long userId) {
         checkId(filmId);
         checkId(userId);
         Film film = filmStorage.getFilm(filmId);
@@ -51,7 +51,7 @@ public class FilmService {
         log.info("Фильму {} был поставлен лайк от пользователя {}", film, user);
     }
 
-    public void filmLikeRemove(Long filmId, Long userId) {
+    public void removeLike(Long filmId, Long userId) {
         checkId(filmId);
         checkId(userId);
         Film film = filmStorage.getFilm(filmId);

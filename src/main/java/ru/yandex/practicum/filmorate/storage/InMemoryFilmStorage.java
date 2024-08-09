@@ -16,14 +16,14 @@ public class InMemoryFilmStorage implements FilmStorage {
     private long id = 0;
 
     @Override
-    public Film filmCreate(Film film) {
+    public Film createFilm(Film film) {
         film.setId(getNextId());
         films.put(film.getId(), film);
         return film;
     }
 
     @Override
-    public Film filmUpdate(Film film) {
+    public Film updateFilm(Film film) {
         getFilm(film.getId());
         films.put(film.getId(), film);
         return film;
@@ -35,7 +35,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
     @Override
-    public void filmDelete(Long id) {
+    public void deleteFilm(Long id) {
         Film film = getFilm(id);
         films.remove(film.getId());
         log.info("Фильм {} удален", film);
