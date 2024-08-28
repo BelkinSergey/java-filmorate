@@ -1,0 +1,33 @@
+package ru.yandex.practicum.filmorate.controller;
+
+import jakarta.validation.constraints.Positive;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import ru.yandex.practicum.filmorate.model.RatingMpa;
+import ru.yandex.practicum.filmorate.service.rating.RatingMpaService;
+
+import java.util.Collection;
+
+@RestController
+@RequestMapping("/mpa")
+@RequiredArgsConstructor
+public class RatingMpaController {
+
+    private static final String ID = "id";
+    private final RatingMpaService ratingMpaService;
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<RatingMpa> findAllRatingMpa() {
+        return ratingMpaService.findAllRatingMpa();
+    }
+
+    @GetMapping("/{" + ID + "}")
+    @ResponseStatus(HttpStatus.OK)
+    public RatingMpa findRatingMpa(@PathVariable(ID) @Positive int idRatingMpa) {
+        return ratingMpaService.findRatingMpa(idRatingMpa);
+    }
+
+}

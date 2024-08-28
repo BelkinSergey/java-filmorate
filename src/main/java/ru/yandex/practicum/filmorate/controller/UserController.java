@@ -1,84 +1,71 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import java.util.Collection;
+
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+
+import lombok.RequiredArgsConstructor;
+
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.service.UserService;
-
-import java.util.Collection;
-import java.util.List;
+import ru.yandex.practicum.filmorate.service.user.UserService;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 @Slf4j
-@Validated
 public class UserController {
+
+    private static final String FRIEND_ID = "friendId";
+    private static final String ID = "id";
     private final UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @PutMapping("{userId}/friends/{friendId}")
-    public void addToFriend(@Valid @PathVariable Long userId, @PathVariable Long friendId) {
-        log.info("Поступил Put запрос с переменной пути /users/{}/friends/{}", userId, friendId);
-        userService.addToFriend(userId, friendId);
-    }
-
-    @DeleteMapping("{userId}/friends/{friendId}")
-    public void deleteFriend(@PathVariable Long userId, @PathVariable Long friendId) {
-        log.info("Поступил Delete запрос с переменной пути /users/{}/friends/{}", userId, friendId);
-        userService.deleteFriend(userId, friendId);
-    }
-
-    @GetMapping("{userId}/friends")
-    public List<User> allUserFriends(@PathVariable Long userId) {
-        log.info("Поступил Get запрос с переменной пути /users/{}/friends", userId);
-        List<User> userFriendsResponse = userService.allUserFriends(userId);
-        log.info("Отправлен Get ответ с телом {}", userFriendsResponse);
-        return userFriendsResponse;
-    }
-
-    @GetMapping("{userId}/friends/common/{otherUserId}")
-    public List<User> commonFriends(@PathVariable Long userId, @PathVariable Long otherUserId) {
-        log.info("Поступил Get запрос с переменной пути /users/{}/friends/common/{}", userId, otherUserId);
-        List<User> userCommonFriendsResponse = userService.commonFriends(userId, otherUserId);
-        log.info("Отправлен Get ответ с телом {}", userCommonFriendsResponse);
-        return userCommonFriendsResponse;
+    @PutMapping("/{" + ID + "}/friends/{" + FRIEND_ID + "}")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<User> addFriend(@PathVariable(ID) @Positive int idUser,
+                                      @PathVariable(FRIEND_ID) @Positive int idFriend) {
+        return userService.addFriend(idUser, idFriend);
     }
 
     @PostMapping
-    public User userCreate(@Valid @RequestBody User newUser) {
-        log.info("Поступил Post запрос /films с телом {}", newUser);
-        User userResponse = userService.createUser(newUser);
-        log.info("Отправлен ответ Post / films с телом {}", userResponse);
-        return userResponse;
+    @ResponseStatus(HttpStatus.CREATED)
+    public User createUser(@Valid @RequestBody User user) {
+        return userService.createUser(user);
     }
 
-    @PutMapping
-    public User userUpdate(@Valid @RequestBody User newUser) {
-        log.info("Поступил Put запрос /films с телом {}", newUser);
-        User userResponse = userService.updateUser(newUser);
-        log.info("Отправлен Put ответ /films с телом {}", userResponse);
-        return userResponse;
+    @DeleteMapping("/{" + ID + "}/friends/{" + FRIEND_ID + "}")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<User> deleteFriend(@PathVariable(ID) @Positive int idUser,
+                                         @PathVariable(FRIEND_ID) @Positive int idFriend) {
+        return userService.deleteFriend(idUser, idFriend);
     }
 
     @GetMapping
-    public Collection<User> allUsers() {
-        Collection<User> usersResponse = userService.allUsers();
-        log.info("Отправлен ответ Get /films c телом {}", usersResponse);
-        return usersResponse;
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<User> findAllUsers() {
+        return userService.findAllUsers();
     }
 
-    @DeleteMapping(value = {"{userId}"})
+    @GetMapping("/{" + ID + "}/friends")
     @ResponseStatus(HttpStatus.OK)
-    public void userDelete(@PathVariable("userId") Long id) {
-        log.info("Поступил Delete запрос с переменной пути /users/{}", id);
-        userService.deleteUser(id);
+    public Collection<User> findFriends(@PathVariable(ID) @Positive int idUser) {
+        return userService.findFriends(idUser);
     }
+
+    @GetMapping("/{" + ID + "}/friends/common/{otherId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<User> findMutualFriends(@PathVariable(ID) @Positive int idUser,
+                                              @PathVariable("otherId") @Positive int idFriend) {
+        return userService.findMutualFriends(idUser, idFriend);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public User updateUser(@Valid @RequestBody User user) {
+        return userService.updateUser(user);
+    }
+
 }
