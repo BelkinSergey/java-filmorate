@@ -1,8 +1,6 @@
 package ru.yandex.practicum.filmorate.repository.user;
 
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -16,12 +14,11 @@ import java.util.*;
 
 @Repository
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Slf4j
 public class JdbcUserRepository implements UserRepository {
 
-    NamedParameterJdbcOperations namedParameterJdbcOperations;
-    UserRowMapper userRowMapper;
+    private final NamedParameterJdbcOperations namedParameterJdbcOperations;
+    private final UserRowMapper userRowMapper;
     static String sqlAddFriend = "INSERT INTO friends (id_user, id_friend)"
             + " VALUES (:id_user, :id_friend)";
     static String sqlCreateUser = "INSERT INTO user_storage (birthday, email, login, name)"

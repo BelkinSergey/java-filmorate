@@ -1,8 +1,7 @@
 package ru.yandex.practicum.filmorate.repository.genre;
 
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -14,12 +13,11 @@ import java.util.*;
 
 @Repository
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Slf4j
 public class JdbcGenreRepository implements GenreRepository {
 
-    NamedParameterJdbcOperations namedParameterJdbcOperations;
-    GenreRowMapper genreRowMapper;
+    private final NamedParameterJdbcOperations namedParameterJdbcOperations;
+    private final GenreRowMapper genreRowMapper;
     static String sqlAddFilmGenre = "INSERT INTO film_genre (id_film, id_genre)"
             + " VALUES (:id_film, :id_genre)";
     static String sqlDeleteFilmGenres = "DELETE FROM film_genre"

@@ -4,25 +4,24 @@ import java.util.Collection;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
-import lombok.AccessLevel;
+
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.user.UserService;
 
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
 
-    static final String FRIEND_ID = "friendId";
-    static final String ID = "id";
-    UserService userService;
+    private static final String FRIEND_ID = "friendId";
+    private static final String ID = "id";
+    private final UserService userService;
 
     @PutMapping("/{" + ID + "}/friends/{" + FRIEND_ID + "}")
     @ResponseStatus(HttpStatus.OK)

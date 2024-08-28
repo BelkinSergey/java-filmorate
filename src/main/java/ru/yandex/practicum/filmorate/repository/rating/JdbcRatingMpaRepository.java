@@ -1,8 +1,6 @@
 package ru.yandex.practicum.filmorate.repository.rating;
 
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -17,12 +15,11 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Slf4j
 public class JdbcRatingMpaRepository implements RatingMpaRepository {
 
-    NamedParameterJdbcOperations namedParameterJdbcOperations;
-    RatingMpaRowMapper ratingMpaRowMapper;
+    private final NamedParameterJdbcOperations namedParameterJdbcOperations;
+    private final RatingMpaRowMapper ratingMpaRowMapper;
     String sqlFindAllRatingMpa = "SELECT *"
             + " FROM rating_mpa";
     String sqlFindRatingMpa = "SELECT *"

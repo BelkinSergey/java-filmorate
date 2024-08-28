@@ -4,25 +4,23 @@ import java.util.Collection;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
-import lombok.AccessLevel;
+
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.film.FilmService;
 
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RestController
 @RequestMapping("/films")
 @RequiredArgsConstructor
 @Slf4j
 public class FilmController {
 
-    FilmService filmService;
-    static final String ID = "id";
-    static final String USER_ID = "userId";
+    private final FilmService filmService;
+    private static final String ID = "id";
+    private static final String USER_ID = "userId";
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

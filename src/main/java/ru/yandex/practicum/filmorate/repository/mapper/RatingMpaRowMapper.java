@@ -14,15 +14,10 @@ public class RatingMpaRowMapper implements RowMapper<RatingMpa> {
 
     @Override
     public RatingMpa mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-        try {
-            RatingMpa ratingMpa = new RatingMpa();
-            ratingMpa.setId(resultSet.getInt("id_rating_mpa"));
-            ratingMpa.setName(resultSet.getString("name"));
-            return ratingMpa;
-        } catch (SQLException exception) {
-            log.error("RatingMpaRowMapper, mapRow", exception);
-            return null;
-        }
+        RatingMpa ratingMpa = new RatingMpa();
+        ratingMpa.setId(resultSet.getInt("id_rating_mpa"));
+        ratingMpa.setName(resultSet.getString("name"));
+        return ratingMpa;
     }
 
 }

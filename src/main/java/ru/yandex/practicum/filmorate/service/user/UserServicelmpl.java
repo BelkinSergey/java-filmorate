@@ -1,9 +1,7 @@
 package ru.yandex.practicum.filmorate.service.user;
 
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.DataException;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
@@ -13,13 +11,15 @@ import ru.yandex.practicum.filmorate.repository.user.UserRepository;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-@RequiredArgsConstructor
 @Service
 @Slf4j
-public class JdbcUserService implements UserService {
+public class UserServicelmpl implements UserService {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserServicelmpl(@Qualifier("jdbcUserRepository") UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public Collection<User> addFriend(int idUser, int idFriend) {

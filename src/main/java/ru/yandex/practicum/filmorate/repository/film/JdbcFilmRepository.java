@@ -1,8 +1,7 @@
 package ru.yandex.practicum.filmorate.repository.film;
 
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -17,12 +16,11 @@ import java.sql.Date;
 
 @Repository
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Slf4j
 public class JdbcFilmRepository implements FilmRepository {
 
-    NamedParameterJdbcOperations namedParameterJdbcOperations;
-    FilmRowMapper filmRowMapper;
+    private final NamedParameterJdbcOperations namedParameterJdbcOperations;
+    private final FilmRowMapper filmRowMapper;
     static String sqlCreateFilm = "INSERT INTO film_storage (description, duration, name,"
             + " id_rating_mpa, release_date)"
             + " VALUES (:description, :duration, :name, :id_rating_mpa, :release_date)";

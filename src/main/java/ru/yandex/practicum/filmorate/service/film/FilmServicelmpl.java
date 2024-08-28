@@ -1,9 +1,7 @@
 package ru.yandex.practicum.filmorate.service.film;
 
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.DataException;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
@@ -20,16 +18,22 @@ import ru.yandex.practicum.filmorate.repository.user.UserRepository;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-@RequiredArgsConstructor
 @Service
 @Slf4j
-public class JdbcFilmService implements FilmService {
+public class FilmServicelmpl implements FilmService {
 
-    FilmRepository filmRepository;
-    GenreRepository genreRepository;
-    RatingMpaRepository ratingMpaRepository;
-    UserRepository userRepository;
+    private final FilmRepository filmRepository;
+    private final GenreRepository genreRepository;
+    private final RatingMpaRepository ratingMpaRepository;
+    private final UserRepository userRepository;
+
+    public FilmServicelmpl(@Qualifier("jdbcFilmRepository") FilmRepository filmRepository, GenreRepository genreRepository, RatingMpaRepository ratingMpaRepository, UserRepository userRepository) {
+        this.filmRepository = filmRepository;
+        this.genreRepository = genreRepository;
+        this.ratingMpaRepository = ratingMpaRepository;
+        this.userRepository = userRepository;
+    }
+
 
     @Override
     public void checkFilm(int idFilm, String massageLog, String massageException) {
@@ -71,7 +75,7 @@ public class JdbcFilmService implements FilmService {
                     .map(Genre::getId)
                     .forEach(id -> genreRepository.findGenre(id)
                             .orElseThrow(() -> {
-                                log.warn("JdbcFilmService, checkRatingMpaGenres.");
+                                log.warn("FilmServicelmpl, checkRatingMpaGenres.");
                                 return new ValidationException("Передан несуществующий для фильмов жанр.");
                             }));
         }

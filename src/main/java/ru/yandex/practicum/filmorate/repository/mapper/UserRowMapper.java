@@ -15,18 +15,13 @@ public class UserRowMapper implements RowMapper<User> {
 
     @Override
     public User mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-        try {
-            User user = new User();
-            user.setBirthday(resultSet.getDate("birthday").toLocalDate());
-            user.setEmail(resultSet.getString("email"));
-            user.setId(resultSet.getInt("id_user"));
-            user.setLogin(resultSet.getString("login"));
-            user.setName(resultSet.getString("name"));
-            return user;
-        } catch (SQLException exception) {
-            log.error("UserRowMapper, mapRow", exception);
-            return null;
-        }
+        User user = new User();
+        user.setBirthday(resultSet.getDate("birthday").toLocalDate());
+        user.setEmail(resultSet.getString("email"));
+        user.setId(resultSet.getInt("id_user"));
+        user.setLogin(resultSet.getString("login"));
+        user.setName(resultSet.getString("name"));
+        return user;
     }
 
 }

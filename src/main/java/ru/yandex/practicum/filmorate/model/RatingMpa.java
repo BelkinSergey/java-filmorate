@@ -1,16 +1,13 @@
 package ru.yandex.practicum.filmorate.model;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.experimental.FieldDefaults;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 public class RatingMpa {
 
-    int id;
+    private int id;
     @NotBlank(message = "Название рейтинга фильма не может быть пустым.")
-    String name;
+    private String name;
 
 }
